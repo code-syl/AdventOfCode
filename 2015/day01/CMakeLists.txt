@@ -7,4 +7,4 @@ add_executable(day01 main.c)
 
 
 # Treat warnings as errors + expanded errors/warnings
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -Wpedantic")
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -Wpedantic")
