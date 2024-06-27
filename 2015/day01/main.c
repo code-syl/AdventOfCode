@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int partOne(char* fileName, int* solution);
-int partTwo(char* fileName, int* solution);
+int partOne(const char* fileName, int* solution);
+int partTwo(const char* fileName, int* solution);
 int changeFloor(const char* direction, int* floor);
 
 enum ERROR
@@ -37,7 +37,7 @@ int main(const int argc, char** argv)
     return 0;
 }
 
-int partOne(char* fileName, int* solution)
+int partOne(const char* fileName, int* solution)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
@@ -59,7 +59,7 @@ int partOne(char* fileName, int* solution)
     return 0;
 }
 
-int partTwo(char* fileName, int* solution)
+int partTwo(const char* fileName, int* solution)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
