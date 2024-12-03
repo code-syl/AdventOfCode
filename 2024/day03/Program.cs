@@ -1,5 +1,4 @@
-﻿using System.Reflection.Metadata;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 const string file = "input.real";
 var data = string.Join("", await File.ReadAllLinesAsync(file));
