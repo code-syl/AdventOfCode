@@ -51,7 +51,7 @@ bool IsMiddleOfXmasCross(char[][] grid, int y, int x)
      *    M*S     S*S     S*M     M*M
      */
 
-    if (grid[y - 1][x - 1] == 'M' && grid[y - 1][x + 1] == 'S' && grid[y + 1][x - 1] == 'M' &&
+    /*if (grid[y - 1][x - 1] == 'M' && grid[y - 1][x + 1] == 'S' && grid[y + 1][x - 1] == 'M' &&
         grid[y + 1][x + 1] == 'S')
         return true;
     if (grid[y - 1][x - 1] == 'M' && grid[y - 1][x + 1] == 'M' && grid[y + 1][x - 1] == 'S' &&
@@ -62,9 +62,13 @@ bool IsMiddleOfXmasCross(char[][] grid, int y, int x)
         return true;
     if (grid[y - 1][x - 1] == 'S' && grid[y - 1][x + 1] == 'S' && grid[y + 1][x - 1] == 'M' &&
         grid[y + 1][x + 1] == 'M')
-        return true;
+        return true;*/
 
-    return false;
+    // Simplified version of above
+    var solutions = new[] { "MSMS", "MMSS", "SMSM", "SSMM" };
+    var word = new string(new[] { grid[y - 1][x - 1], grid[y - 1][x + 1], grid[y + 1][x - 1], grid[y + 1][x + 1] });
+    
+    return solutions.Contains(word);
 }
 
 bool SearchForWordAt(char[][] grid, int y, int x, string word, out int occurrences)
