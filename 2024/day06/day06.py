@@ -99,7 +99,7 @@ for point in route:
     try:
         # set one of the path's coords to a wall, then traverse
         map[point[1]][point[0]] = 1
-        _, _ = traverse(map, startX, startY)
+        _, _ = traverse(map, startX, startY, False)
     except Exception:
         # if looping, add to the wall list
         walls.add((point[0], point[1]))
