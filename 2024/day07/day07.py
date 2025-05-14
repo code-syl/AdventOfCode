@@ -1,7 +1,16 @@
-def generateOperatorSets(length: int, base: int) -> list[list[int]]:
+from multiprocessing import Pool, cpu_count
+
+def multiprocess_solveable(args: tuple[tuple[int, list[int]], set[tuple[int]]]) -> int:
+    calculation, operatorSet = args
+    if solveable(calculation, operatorSet):
+        print("-->", calculation[0])
+        return calculation[0]
+    return 0
+
+def generateOperatorSets(length: int, base: int) -> set[list[int]]:
     # Cartesion product of sets of itself
     # Generate each possibility of a list of length N where items can be one of base options (duplicates allowed)
-    result = []
+    result = set()
 
     # for each 'length' positions there are 'base' options
     # so there are in total base^length possible options
@@ -13,23 +22,23 @@ def generateOperatorSets(length: int, base: int) -> list[list[int]]:
             combo.append(digit)
             value //= base # shift to the left 'base' digits
 
-        result.append(combo)
+        result.add(tuple(combo))
 
     return result;
 
-def solveable(equation: tuple[int, list[int]], operatorSets: list[list[int]] | None) -> bool:
+def solveable(equation: tuple[int, list[int]], operatorSets: set[tuple[int]] | None) -> bool:
     if operatorSets is None:
         return False
 
     # go through the each possible set of operators for each equation
-    for i in range(len(operatorSets)):
+    for o in operatorSets:
         j = 0
         temp = equation[1][j]
         while j+1 < len(equation[1]):
             # 0 equals +, 1 equals *
-            if operatorSets[i][j] == 0:
+            if o[j] == 0:
                 temp = temp + equation[1][j+1]
-            elif operatorSets[i][j] == 1:
+            elif o[j] == 1:
                 temp = temp * equation[1][j+1]
             else:
                 temp = int(str(temp) + str(equation[1][j+1]))
@@ -76,14 +85,13 @@ print(f"Solution for part 1: {solution}")
 solution = 0
 cachedOperatorSets = dict()
 for calc in calculations:
-    # cache the operators if needed
     length = len(calc[1]) - 1
-    if cachedOperatorSets.get(length) is None:
+    if length not in cachedOperatorSets:
         cachedOperatorSets[length] = generateOperatorSets(length, 3)
 
-    good = solveable(calc, cachedOperatorSets.get(length))
-    if good:
-        solution += calc[0]
-        print(f"sol.: --> {solution}")
+with Pool(cpu_count()) as pool:
+    arguments = [(calc, cachedOperatorSets[len(calc[1]) - 1]) for calc in calculations]
+    results = pool.map(multiprocess_solveable, arguments)
+solution = sum(results)
 
 print(f"Solution for part 2: {solution}")
