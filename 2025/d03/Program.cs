@@ -1,4 +1,4 @@
-﻿var lines = File.ReadAllLines("input.real");
+﻿var lines = File.ReadAllLines("input.example");
 
 var banks = lines.Select(l =>
 {
@@ -15,8 +15,6 @@ foreach (var b in banks)
     // walk from left to right per array - 1 to get the highest digit
     var current = 0;
     var highest = 0;
-    var first = 0;
-    var second = 0;
 
     for (var i = current; i < bank.Length - 1; i++)
     {
@@ -35,7 +33,7 @@ foreach (var b in banks)
 
     // then continue where left off till end or 9
     if (highest != 9) current++;
-    first = highest;
+    var first = highest;
     highest = 0;
     for (var i = current; i < bank.Length; i++)
     {
@@ -48,7 +46,7 @@ foreach (var b in banks)
         if (bank[i] > highest) highest = bank[i];
     }
 
-    second = highest;
+    var second = highest;
     sum += Convert.ToInt32($"{first}{second}");
 }
 

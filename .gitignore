@@ -1,5 +1,6 @@
 ﻿input.real
 **/.idea/**
+.vscode/
 
 ### Csharp template
 ## Ignore Visual Studio temporary files, build results, and
